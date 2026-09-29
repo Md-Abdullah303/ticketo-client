@@ -10,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col bg-[#080c16] text-[#f3f4f6]">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-[#080c16] text-[#f3f4f6]">
         <Navber2 />
         <main className="flex-grow flex flex-col">{children}</main>
         <Footer />

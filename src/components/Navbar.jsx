@@ -7,6 +7,7 @@ import { FaTicketAlt, FaUser, FaSignOutAlt, FaThLarge } from "react-icons/fa";
 import Logo from "./Logo";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 export default function Navbar({ userData }) {
   const pathname = usePathname();
@@ -26,17 +27,19 @@ export default function Navbar({ userData }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await authClient.signOut();
     setIsLoggedIn(false);
     setDropdownOpen(false);
-    alert("Logged Out! (Design Only)");
+    toast.success("Logged Out! (Design Only)");
   };
 
   const mockUser = {
-    name: "Jane Doe",
-    email: "jane@example.com",
-    role: "attendee",
-    image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde",
+    // name: "Jane Doe",
+    // email: "jane@example.com",
+    // role: "attendee",
+    // image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde",
+    ...userData,
   };
 
   return (
@@ -55,14 +58,14 @@ export default function Navbar({ userData }) {
           </Link>
           <Link
             href="/events"
-            className={`text-sm font-medium transition-colors ${pathname.startsWith("/events") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
+            className={`text-sm font-medium transition-colors ${pathname?.startsWith("/events") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
           >
             Browse Events
           </Link>
           {isLoggedIn && (
             <Link
               href={"/"}
-              className={`text-sm font-medium transition-colors ${pathname.startsWith("/dashboard") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
+              className={`text-sm font-medium transition-colors ${pathname?.startsWith("/dashboard") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
             >
               Dashboard
             </Link>

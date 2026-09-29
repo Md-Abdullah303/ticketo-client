@@ -22,9 +22,13 @@ import { FaUser, FaEnvelope, FaLock, FaImage, FaGoogle } from "react-icons/fa";
 import Logo from "@/components/Logo";
 import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
 
 export default function RegisterPage() {
   const { register, handleSubmit } = useForm();
+  const router = useRouter()
 
   const onSubmit = async (data) => {
     const { data: signUpData, error: signUpError } =
@@ -34,9 +38,12 @@ export default function RegisterPage() {
 
     console.log(data);
     if (signUpData) {
-      console.log("Succesfull to login");
+      // console.log("Succesfull to login");
+      router.push("/");
+      toast("login successfull!")
     } else if (signUpError) {
       console.log("something was wrong!");
+      toast.error("login successfull!")
     }
   };
 
@@ -59,7 +66,6 @@ export default function RegisterPage() {
               {...register("name", { required: "Name is required" })}
               id="name"
               placeholder="John Doe"
-              labelPlacement="outside"
               startContent={<FaUser className="text-slate-400 text-sm" />}
               className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
             />
@@ -69,7 +75,6 @@ export default function RegisterPage() {
               id="email"
               placeholder="john@example.com"
               type="email"
-              labelPlacement="outside"
               startContent={<FaEnvelope className="text-slate-400 text-sm" />}
               className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
             />
@@ -78,7 +83,6 @@ export default function RegisterPage() {
               {...register("image", { required: "Image is required" })}
               id="image"
               placeholder="https://example.com/avatar.jpg"
-              labelPlacement="outside"
               startContent={<FaImage className="text-slate-400 text-sm" />}
               className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
             />
@@ -92,7 +96,6 @@ export default function RegisterPage() {
               id="password"
               placeholder="••••••••"
               type="password"
-              labelPlacement="outside"
               startContent={<FaLock className="text-slate-400 text-sm" />}
               className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
             />
