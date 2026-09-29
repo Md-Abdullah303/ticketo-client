@@ -40,6 +40,7 @@ export default function RegisterPage() {
     if (signUpData) {
       // console.log("Succesfull to login");
       router.push("/");
+      router.refresh("/")
       toast("login successfull!")
     } else if (signUpError) {
       console.log("something was wrong!");
@@ -62,43 +63,51 @@ export default function RegisterPage() {
         <CardBody className="gap-4">
           <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
             <Label htmlFor="name">Full Name</Label>
-            <Input
-              {...register("name", { required: "Name is required" })}
-              id="name"
-              placeholder="John Doe"
-              startContent={<FaUser className="text-slate-400 text-sm" />}
-              className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-            />
+            <div className="flex items-center gap-2 w-full bg-slate-900/50 border border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 rounded-lg px-3">
+              <FaUser className="text-slate-400 text-sm shrink-0" />
+              <Input
+                {...register("name", { required: "Name is required" })}
+                id="name"
+                placeholder="John Doe"
+                className="w-full border-none bg-transparent"
+              />
+            </div>
             <Label htmlFor="email">Email Address</Label>
-            <Input
-              {...register("email", { required: "Email is required" })}
-              id="email"
-              placeholder="john@example.com"
-              type="email"
-              startContent={<FaEnvelope className="text-slate-400 text-sm" />}
-              className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-            />
+            <div className="flex items-center gap-2 w-full bg-slate-900/50 border border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 rounded-lg px-3">
+              <FaEnvelope className="text-slate-400 text-sm shrink-0" />
+              <Input
+                {...register("email", { required: "Email is required" })}
+                id="email"
+                placeholder="john@example.com"
+                type="email"
+                className="w-full border-none bg-transparent"
+              />
+            </div>
             <Label htmlFor="image">Profile Image URL</Label>
-            <Input
-              {...register("image", { required: "Image is required" })}
-              id="image"
-              placeholder="https://example.com/avatar.jpg"
-              startContent={<FaImage className="text-slate-400 text-sm" />}
-              className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-            />
+            <div className="flex items-center gap-2 w-full bg-slate-900/50 border border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 rounded-lg px-3">
+              <FaImage className="text-slate-400 text-sm shrink-0" />
+              <Input
+                {...register("image", { required: "Image is required" })}
+                id="image"
+                placeholder="https://example.com/avatar.jpg"
+                className="w-full border-none bg-transparent"
+              />
+            </div>
 
             <Label htmlFor="password">Password</Label>
-            <Input
-              {...register("password", {
-                required: "Password is required",
-                minLength: 7,
-              })}
-              id="password"
-              placeholder="••••••••"
-              type="password"
-              startContent={<FaLock className="text-slate-400 text-sm" />}
-              className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-            />
+            <div className="flex items-center gap-2 w-full bg-slate-900/50 border border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 rounded-lg px-3">
+              <FaLock className="text-slate-400 text-sm shrink-0" />
+              <Input
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: 7,
+                })}
+                id="password"
+                placeholder="••••••••"
+                type="password"
+                className="w-full border-none bg-transparent"
+              />
+            </div>
 
             <select
               id="role"

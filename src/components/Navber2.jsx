@@ -7,8 +7,8 @@ const Navber2 = async () => {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-  console.log(session);
-  const userData = session?.user || {};
+  // console.log(session);
+  const userData = session?.user;
   return (
     <div>
       <Navbar userData={userData} />

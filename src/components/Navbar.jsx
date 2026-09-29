@@ -8,10 +8,11 @@ import Logo from "./Logo";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ userData }) {
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -29,9 +30,12 @@ export default function Navbar({ userData }) {
 
   const handleLogout = async () => {
     await authClient.signOut();
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
     setDropdownOpen(false);
-    toast.success("Logged Out! (Design Only)");
+    // toast.info("Logged Out! (Design Only)");
+    router.push("/");
+    router.refresh();
+
   };
 
   const mockUser = {
@@ -41,6 +45,8 @@ export default function Navbar({ userData }) {
     // image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde",
     ...userData,
   };
+
+
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-slate-950/65 backdrop-blur-md py-3.5 px-6">
@@ -62,7 +68,7 @@ export default function Navbar({ userData }) {
           >
             Browse Events
           </Link>
-          {isLoggedIn && (
+          {userData && (
             <Link
               href={"/"}
               className={`text-sm font-medium transition-colors ${pathname?.startsWith("/dashboard") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
@@ -74,14 +80,15 @@ export default function Navbar({ userData }) {
 
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-4">
-          {!isLoggedIn && (
+          {!userData && (
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => setIsLoggedIn(true)}
-                className="inline-flex items-center justify-center font-semibold text-xs text-slate-300 hover:text-white h-9 px-4 rounded-xl hover:bg-white/5 transition"
+
+              <Link
+                href="/login"
+                className={"inline-flex items-center justify-center font-semibold text-xs text-slate-300 hover:text-white h-9 px-4 rounded-xl hover:bg-white/5 transition"}
               >
                 Login
-              </button>
+              </Link>
               <Link
                 href="/register"
                 className="inline-flex items-center justify-center font-semibold text-xs bg-gradient-to-r from-pink-500 to-indigo-600 text-white shadow-lg shadow-pink-500/10 hover:shadow-pink-500/20 transition h-9 px-4 rounded-xl"
@@ -91,7 +98,7 @@ export default function Navbar({ userData }) {
             </div>
           )}
 
-          {isLoggedIn && (
+          {userData && (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
